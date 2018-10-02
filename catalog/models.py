@@ -36,16 +36,25 @@ class Book(models.Model):
 
 	def display_genre(self):
 		return ','.join(genre.name for genre in self.genre.all()[:3])
-		
+	
+	def __str__(self):
+		return self.title
 	display_genre.short_description='Genre'
 		#return str(genre)
 
 class BookInstance(models.Model):
-	book=models.ForeignKey('book', on_delete=models.CASCADE)
+	book=models.ForeignKey(Book, on_delete=models.CASCADE)
 	id=models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="unique id for this book across whole library")
 	imprint=models.CharField(max_length=200)
 	loan_status=(('m',"maintenance"),('o',"On Loan"),('r',"reserved"),('a',"available"))
 	due_back=models.DateField(null=True , blank=True)
 	status=models.CharField(max_length=1,choices=loan_status,blank=False,help_text="Book availability",default="m")
+ 
+	def __str__(self):
+	   # return f'{self.id} ({self.book.title})'
+	   return str(self.book.title) 
 
+    #class Meta:
+    #	ordering=['due_back']
+ 
 

@@ -1,0 +1,21 @@
+
+{% extends "catalog/base_generic.html" %}
+
+
+{% block title %}
+<h1>LocalLibrary</h1>
+{% endblock %}
+{% block content %}
+<h3> LocalLibrary Home</h3>
+
+<p>Welcome to the index page developed by Abhishek Tripathi</p>
+ <p>The library has the following record counts:</p>
+  <ul>
+    <li><strong>Books:</strong> {{ num_books }}</li>
+    <li><strong>Copies:</strong> {{ num_Instances }}</li>
+    <li><strong>Copies available:</strong> {{ num_instance_available }}</li>
+    <li><strong>Authors:</strong> {{ num_authors }}</li>
+  </ul>
+
+
+{% endblock %}
