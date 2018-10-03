@@ -22,7 +22,7 @@ class Author(models.Model):
 
 	def __str__(self):		
 	 	return (self.first_name+" "+self.last_name)
-
+	 	
 class Book(models.Model):
 	title=models.CharField(max_length=60)
 	author=models.ForeignKey('Author', on_delete=models.CASCADE,help_text="Enter name of the author")

@@ -1,0 +1,10 @@
+
+{% extends 'catalog/base_generic.html'%}
+{% block content %}
+
+<p>List of all the authors</p>
+	{% for value in object_list %}
+		<li>{{value.first_name}}</li>
+
+	{% endfor %}
+{% endblock %}
