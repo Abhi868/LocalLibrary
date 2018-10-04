@@ -1,7 +1,7 @@
 {% extends "catalog/base_generic.html" %}
 {% block content %}
 	<h1>{{book.title}}</h1>
-	<p><strong>Author:</strong><a href="">{{book.Author}}</a></p>
+	<p><strong>Author:</strong><a href="{% url 'author-detail' book.author.pk %}">{{book.author}}</a></p>
 	<p><strong>ISBN:</strong><a href="">{{book.isbn}}</p>
 	<p><strong>Summary:</strong><a href="">{{book.summary}}</p>
 	<p><strong>Language:</strong><a href="">{{book.language}}</p>

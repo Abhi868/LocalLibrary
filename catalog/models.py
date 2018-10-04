@@ -25,7 +25,7 @@ class Author(models.Model):
 	 	
 class Book(models.Model):
 	title=models.CharField(max_length=60)
-	author=models.ForeignKey('Author', on_delete=models.CASCADE,help_text="Enter name of the author")
+	author=models.ForeignKey('Author',on_delete=models.CASCADE,help_text="Enter name of the author")
 	summary=models.TextField(max_length=100,help_text="Enter description of the book")
 	isbn=models.CharField('ISBN' ,max_length=13,help_text="13 character number <a href=https://www.isbn-international.org/content/what-isbn>what is ISBN number</a>")
 	genre=models.ManyToManyField(Genre, help_text="Select Genre for this book ")

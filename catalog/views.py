@@ -16,13 +16,14 @@ def index(request):
 	#No of books available
 	num_instance_available=BookInstance.objects.filter(status="a").count()
 	num_authors=Author.objects.all().count()
-
-
+	num_visits=request.session.get('num_visits',0)
+	request.session['num_visits']=num_visits+1
 	context={
 	"num_books":num_books,
 	"num_Instances":num_Instances,
 	"num_instance_available":num_instance_available,
 	"num_authors":num_authors,
+	"num_visits":num_visits,
 	}
 
 	return render(request,"catalog/index.html",context)
@@ -33,7 +34,7 @@ class BookListView(generic.ListView):
 	templates="catalog/book_list"
 	#queryset=Book.objects.all()[:5]
 	context="Book_list"
-
+	paginate_by=1
 	def get_queryset(self):
 		return Book.objects.all()[:4]
 
@@ -44,8 +45,11 @@ class BookDetailView(generic.DetailView):
 
 class AuthorsListView(generic.ListView):
 	model=Author
-	#context="authorlist"
+	context="author_list"
+	paginate_by=1
 	
+class AuthorDetailView(generic.DetailView):
+	model=Author
 	'''
 	def context_data(self,**kwargs):
 		context=super(BookDetailView,self).get_context_data(**kwargs)
