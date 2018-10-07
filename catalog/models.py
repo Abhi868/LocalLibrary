@@ -1,6 +1,9 @@
 import uuid
+from datetime import date
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
+#from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your models here.
 class Genre(models.Model):
 	name=models.CharField(max_length=80, help_text="Enter a book genre(e.g Science Fiction)")
@@ -43,18 +46,21 @@ class Book(models.Model):
 		#return str(genre)
 
 class BookInstance(models.Model):
+	borrower=models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 	book=models.ForeignKey(Book, on_delete=models.CASCADE)
 	id=models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="unique id for this book across whole library")
 	imprint=models.CharField(max_length=200)
 	loan_status=(('m',"maintenance"),('o',"On Loan"),('r',"reserved"),('a',"available"))
 	due_back=models.DateField(null=True , blank=True)
 	status=models.CharField(max_length=1,choices=loan_status,blank=False,help_text="Book availability",default="m")
- 
-	def __str__(self):
-	   # return f'{self.id} ({self.book.title})'
-	   return str(self.book.title) 
 
+	def __str__(self):
+	    return (self.book.title)
+
+	@property
+	def overdue(self):
+		if self.due_back and date.today() > self.due_back:
+			return True
+		return False
     #class Meta:
     #	ordering=['due_back']
- 
-

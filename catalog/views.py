@@ -1,12 +1,26 @@
+
+from datetime import date
+
 from django.shortcuts import render
 
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,HttpResponse,get_object_or_404,reverse
 
 from django.views import generic
 
 from . models import Book,BookInstance, Author, Genre
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 # Create your views here.
+
+class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
+	model="BookInstance"
+	template_name="catalog/bookinstance_list_borrowed_user.html"
+	paginate_by=2
+	
+	def get_queryset(self):
+		return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact="o").order_by("due_back")
+
 
 def index(request):
 	#no of books and objects
@@ -39,6 +53,19 @@ class BookListView(generic.ListView):
 		return Book.objects.all()[:4]
 
 
+def OnLoan(request,id):
+	book_inst = get_object_or_404(BookInstance, id=id)
+
+	#print("***********************")
+	if request.method == 'POST':
+		book_inst.status="o"
+		book_inst.borrower=request.user
+		book_inst.save()
+
+		return HttpResponse("Hi")
+
+	return render(request,"catalog/index.html")
+
 
 class BookDetailView(generic.DetailView):
 	model=Book
@@ -55,3 +82,4 @@ class AuthorDetailView(generic.DetailView):
 		context=super(BookDetailView,self).get_context_data(**kwargs)
 	context['some_data']="This is some data"
     '''
+

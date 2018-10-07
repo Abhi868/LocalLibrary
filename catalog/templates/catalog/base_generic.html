@@ -18,6 +18,14 @@
           <li><a href="{% url 'index' %}">Home</a></li>
           <li><a href="{% url 'books' %}">All books</a></li>
           <li><a href="{% url 'authors'%}">All authors</a></li>
+          <li><a href="{% url 'my_borrowed' %}">My Borrowed</a></li>
+        {% if user.is_authenticated %}
+            <li>Hi {{user.get_username}}</li>
+            <li><a href="{% url 'logout' %}?next={{request.path}}">Logout</a></li>
+        {% else %}
+            <li><a href="{% url 'login' %}?next={{request.path}}">Login</a></li>
+        {% endif %}
+
         </ul>
      {% endblock %}
       </div>
@@ -48,9 +56,5 @@
 </body>
 </html> 
 
-  {
-    margin-top: 20px;
-
-    padding: 0;
-    list-style: none;
-}
+<style type="text/css">
+</style>

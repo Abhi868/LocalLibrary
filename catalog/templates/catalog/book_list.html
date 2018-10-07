@@ -8,31 +8,10 @@
 {% if book_list %}
 {% for book in book_list %}
 	<li>
-	<a href="{% url 'book-detail' book.pk %}">{{book.title}}</a>({{book.author}})
+	<a href="{% url 'book-detail' book.pk %}">{{book.title}}</a>({{book.author}})  
 	</li>
 	{% endfor %}
 {% else %}
 <p>No books are available</p>
-{% endif %}
-{% endblock %}
-
-{% block pagination %}
-{% if is_paginated %}
-	<div class="pagination">
-		<span class="page-links">
-			{% if page_obj.has_previous %}
-				<a href="{{request.path}}?page={{page_obj.previous_page_number}}">Previous</a>
-			{% endif %}
-	
-
-		<span class="current -page">
-			<p>Page{{page_obj.number}} of {{page_obj.paginator.num_pages}}</p>
-		</span>
-		
-			{% if page_obj.has_next %}
-				<a href="{{request.path}}?page={{page_obj.next_page_number}}">Next</a>
-			{% endif %}
-		</span>
-
 {% endif %}
 {% endblock %}
