@@ -1,0 +1,18 @@
+
+
+<p>Due date change</p>
+
+{% extends "catalog/base_generic.html" %}
+{% block content %}
+
+
+<p>Change due date </p>
+{{bookinstance_list}}
+<p>DueDate: {{bookinstance_list.due_back}}</p>	
+	<form method="POST" action="{% url 'duedate_changed' bookinstance_list.id %}">
+		{% csrf_token %}
+		<p>Enter New Duedate : <input type="date" name="duedate" ></p>
+		<input type="submit" value="Change Duedate">
+	</form>
+
+{% endblock %}

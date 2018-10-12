@@ -1,0 +1,9 @@
+
+{% extends "catalog/base_generic.html" %}
+<p>Due Date changed successfully</p>
+
+{% block content %}
+<li>{{book}}</li>
+<li>{{book.due_back}}</li>
+<li>{{book.borrower}}</li>
+{% endblock %}

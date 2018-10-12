@@ -1,0 +1,15 @@
+
+
+{% extends "catalog/base_generic.html" %}
+
+
+{% block content %}
+			<p>List of books on Loan</p>
+	{% for book in bookinstance_list %}
+
+		{% if book.borrower %}
+
+			<li><a href="{% url 'change_dueback' book.id %}" >{{book.book.title}}</a> {{book.borrower}}  {{book.due_back}}</li>
+		{% endif %}
+	{% endfor %}
+{% endblock %}		

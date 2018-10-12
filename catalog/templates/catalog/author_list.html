@@ -3,10 +3,17 @@
 {% block content %}
 
 <p>List of all the authors</p>
-	{% for value in object_list %}
+	{% for value in author_list %}
 		<li>
 			<a href ="{% url 'author-detail' value.id %}">{{value.first_name}}</a>
 		</li>
 
 	{% endfor %}
+
+ 
+	<p>------------------------------------------------------------</p>
+	
+
+	<p><a href="{% url 'author_create' %}"> Create an Author record</p>
+		
 {% endblock %}

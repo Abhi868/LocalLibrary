@@ -22,7 +22,7 @@
 	          <p><strong>Due to be returned:</strong> {{copy.due_back}}</p>           
 			  {% else %}   
 				<p><strong>Imprint:</strong> {{copy.imprint}}</p>             
-				<p class="text-muted"><strong>Id:</strong> {{copy.id}}</p>             
+				<p class="text-muted"><strong>Id:</strong> {{copy.x}}</p>             
 				
 				<form method="POST" action="{% url 'onloan' copy.id %}"> 
 					{% csrf_token %} 

@@ -1,11 +1,15 @@
 
-
-
 {% extends "catalog/base_generic.html" %}
 
 {% block title %}
- Author detail page 
+ Author detail page
+
+<li>	<a href="{% url 'author_update' author.id %}">Update an Author</a></li>
+<li>	<a href="{ % url 'author_delete' author.id %}">Delete an Author</a></li>
+
+ 
 {% endblock %}
+	
 	{% block content %}
 	
 
@@ -14,6 +18,7 @@
 	<p>Date_of_birth :{{author.date_of_birth}}</p>
 	<p>Date_of death :{{author.date_of_death}}</p>
 
+	<p>-------------------------------------------------------</p>
 	{% endblock %}
 
 

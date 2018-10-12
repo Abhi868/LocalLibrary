@@ -54,6 +54,9 @@ class BookInstance(models.Model):
 	due_back=models.DateField(null=True , blank=True)
 	status=models.CharField(max_length=1,choices=loan_status,blank=False,help_text="Book availability",default="m")
 
+
+	class Meta:
+		permissions=(("can_mark_returned","set book as returned"),)
 	def __str__(self):
 	    return (self.book.title)
 

@@ -1,0 +1,11 @@
+{% extends "catalog/base_generic.html" %}
+
+
+{% block content %}
+	<form method="POST" action="">
+		{% csrf_token %}
+
+		{{form.as_table}}
+		<input type="submit" value="Renew">
+	</form>
+{% endblock %}
