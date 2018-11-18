@@ -12,16 +12,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixi
 
 from django.views.generic.edit import CreateView,DeleteView,UpdateView
 from django.urls import reverse_lazy
-# Create your views here.
-'''
-def ChangeDueDate(request,id):
-	book_inst=get_object_or_404('BookInstance',id=id)
-	if form.request=="POST":
 
-	
-	def get_queryset(self);
-		return
-'''  
+from django.contrib.auth.decorators import login_required
+# Create your views here.
+
+@login_required
+def home(request):
+	return render(request,"catalog/home.html")
+
 class AuthorCreate(CreateView):
 	model=Author
 	template_name="catalog/author_create_form.html"
@@ -165,7 +163,7 @@ class BookDetailView(generic.DetailView):
 class AuthorsListView(generic.ListView):
 	model=Author
 	context="author_list"
-	paginate_by=1
+	# paginate_by=1
 	
 class AuthorDetailView(generic.DetailView):
 	model=Author

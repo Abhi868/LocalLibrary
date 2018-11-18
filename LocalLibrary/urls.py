@@ -16,13 +16,24 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from django.views.generic import RedirectView	
+from django.conf.urls import url
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+
+     url('', include('django.contrib.auth.urls')),
+
+    url(r'^oauth/', include('social_django.urls', namespace='social')),
+   
     path('admin/', admin.site.urls),
     path('catalog/',include("catalog.urls")),
 
+    url(r'^login/$',auth_views.LoginView.as_view,name="login"),
+    url(r'^logout/$',auth_views.LogoutView.as_view,name="logout"),
+    
+    
     path('',RedirectView.as_view(url='/catalog/' , permanent=True)),
 
-
-    path('accounts/', include("django.contrib.auth.urls")),
+    
+    # path('accounts/', include("django.contrib.auth.urls")),
 ]

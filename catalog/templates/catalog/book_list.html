@@ -9,6 +9,7 @@
 {% for book in book_list %}
 	<li>
 	<a href="{% url 'book-detail' book.pk %}">{{book.title}}</a>({{book.author}})  
+	<!-- <a href="{{ book.get_absoulte_url }}">{{book.title}}</a>{{book.author}} -->
 	</li>
 	{% endfor %}
 {% else %}

@@ -1,10 +1,13 @@
-from django.urls import path
+from django.urls import path,include
 from django.conf.urls import url
 from . import views
+
 										
 
 
 urlpatterns=[
+
+
 
 path('',views.index,name="index"),
 path('books/',views.BookListView.as_view(),name="books"),
@@ -24,4 +27,6 @@ path('author/<int:pk>/update/', views.AuthorUpdate.as_view(), name='author_updat
 path('author/<int:pk>/delete/', views.AuthorDelete.as_view(), name='author_delete'),
 
 
-]								
+
+]	
+						

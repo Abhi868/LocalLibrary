@@ -30,5 +30,13 @@
 		</div>
 	</form>
 	<p><a href="{% url 'password_reset' %}">Lost password</a></p>
+	<p>--OR--</p>
+	<a href="{% url 'social:begin' 'github' %}">
+		<button type="button" name="button" class="btn btn-primary">Github</button>
+	</a>
+
+	<a href="{% url 'social:begin'  'google-oauth2' %}">
+		<button type="button" name="button" class="btn btn-danger">Google+</button>
+	</a>
 
 {% endblock %}

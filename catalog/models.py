@@ -2,9 +2,11 @@ import uuid
 from datetime import date
 from django.db import models
 from django.urls import reverse
+# from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 #from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your models here.
+
 class Genre(models.Model):
 	name=models.CharField(max_length=80, help_text="Enter a book genre(e.g Science Fiction)")
 

@@ -3,15 +3,15 @@ from django.contrib import admin
 from catalog.models import Author,BookInstance,Book,Genre
 #admin.site.register(Author)
 
-class AuthorInline(admin.TabularInline):
-	model=Author	
+class BookInline(admin.TabularInline):
+	model=Book	
+
 class AuthorAdmin(admin.ModelAdmin):
 	fieldset=["first_name",("date_of_birth","date_of_death")]
 	list_display=["first_name","last_name","date_of_birth","date_of_death"]
-#	inlines=[AuthorInline]
+	inlines=[BookInline]
 admin.site.register(Author,AuthorAdmin)
-#admin.site.register(BookInstance)
-#admin.site.register(Book)
+
 
 
 
@@ -35,7 +35,7 @@ class BookInstance(admin.ModelAdmin):
 	#fieldset=(('Book_Info',{'fields':('book','id','imprint')}),
 	#	('Availability',{'fields':('status','due_back')}))
 
-	fieldsets = ((None, {
+	fieldsets = (('Book_Info', {
             'fields': ('book', 'imprint', 'id')
         }),
         ('Availability', {

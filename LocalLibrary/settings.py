@@ -37,7 +37,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'catalog'
+    'catalog',
+
+    'social_django',
+    'social_core',
+]
+
+
+AUTHENTICATION_BACKENDS=[
+
+'social_core.backends.github.GithubOAuth2',
+'social_core.backends.google.GoogleOAuth2',
+'social_core.backends.facebook.FacebookOAuth2',
+'social_core.backends.twitter.TwitterOAuth',
+'django.contrib.auth.backends.ModelBackend',
+
 ]
 
 MIDDLEWARE = [
@@ -48,11 +62,35 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
+
+
+
+SOCIAL_AUTH_GITHUB_KEY ='820971088ff5dc8da6dd'  # App ID                       
+SOCIAL_AUTH_GITHUB_SECRET='e1992d75159f1d2f46ec7a5a805b238e87404e4e'#app secret
+
+
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY= '938585232858-ngfqinq2qkjm7esetvb1ipk6g1uf4djf.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET='6bd5FzuiDnIThJLHUGDlk-nI'
+
+SOCIAL_AUTH_FACEBOOK_KEY ='602006830213339'  # App ID                        
+SOCIAL_AUTH_FACEBOOK_SECRET='6c4d84785e0234664900216da297b678' #app secret
+
+
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'index'
+SOCIAL_AUTH_LOGIN_URL = '/'
+
+
+LOGIN_URL='login'
+LOGOUT_URL='logout'
 
 ROOT_URLCONF = 'LocalLibrary.urls'
 
-LOGIN_REDIRECT_URL = '/'
+
 
 TEMPLATES = [
     {
@@ -65,18 +103,17 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'social_django.context_processors.backends',  
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
-#print("Inside settings")
-#print(BASE_DIR)
+
 
 WSGI_APPLICATION = 'LocalLibrary.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -86,8 +123,6 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -105,8 +140,14 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
+# LOGIN_REDIRECT_URL = 'home'
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
+
 
 LANGUAGE_CODE = 'en-us'
 
