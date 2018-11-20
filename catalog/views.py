@@ -14,6 +14,37 @@ from django.views.generic.edit import CreateView,DeleteView,UpdateView
 from django.urls import reverse_lazy
 
 from django.contrib.auth.decorators import login_required
+# from catalog import/
+
+
+from catalog.forms import SignUpForm
+
+def signUp(request):
+	if request.method=='POST':
+		
+		
+		form=SignUpForm(request.POST)
+		if form.is_valid():
+			user=form.save()
+			user.refresh_from_db()
+			user.profile.email_id=form.cleaned_data.get('email_id')
+			user.save()
+			raw_password = form.cleaned_data.get('password1')
+			user.save()
+			user=authenticate(username=user.username,password=raw_password)
+			login(request,user)
+			return redirect('home')
+	else:
+		form=SignUpForm()
+	return render(request,'catalog/signup.html',{'form':form})
+            # # user = authenticate (username=user.username, password=raw_password)
+            # login(request, user)
+            # return redirect('home')
+    # else:
+    # #     form = SignUpForm()
+    # return render(request, 'signup.html', {'form': form})
+
+
 # Create your views here.
 
 @login_required

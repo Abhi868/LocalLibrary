@@ -3,9 +3,34 @@ from datetime import date
 from django.db import models
 from django.urls import reverse
 # from django.core.urlresolvers import reverse
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 #from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your models here.
+
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.contrib.auth.models import User
+from django.dispatch import receiver
+
+class LoggedInUser(models.Model):
+	user=models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='logged_in_user')
+	session_key=models.CharField(max_length=32,blank=True,null=True)
+
+	def __str__(self):
+		return self.user.username
+
+
+class Profile(models.Model):
+	user=models.OneToOneField(User, on_delete=models.CASCADE)
+	bio=models.TextField(max_length=500, blank=True)
+	email_id=models.EmailField()
+
+
+	@receiver(post_save,sender=User)
+	def update_user_profile(sender,instance,created,**kwargs):
+		if created:
+			Profile.objects.create(user=instance)
+		instance.profile.save()	
 
 class Genre(models.Model):
 	name=models.CharField(max_length=80, help_text="Enter a book genre(e.g Science Fiction)")
@@ -67,5 +92,9 @@ class BookInstance(models.Model):
 		if self.due_back and date.today() > self.due_back:
 			return True
 		return False
+
+
+
+
     #class Meta:
     #	ordering=['due_back']

@@ -1,6 +1,6 @@
 from django.urls import path,include
 from django.conf.urls import url
-from . import views
+from catalog import views
 
 										
 
@@ -8,7 +8,7 @@ from . import views
 urlpatterns=[
 
 
-
+url(r'^signup/',views.signUp,name="signup"),
 path('',views.index,name="index"),
 path('books/',views.BookListView.as_view(),name="books"),
 path('book/<int:pk>',views.BookDetailView.as_view(),name="book-detail"),

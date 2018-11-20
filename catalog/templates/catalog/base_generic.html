@@ -28,6 +28,7 @@
             <li><a href="{% url 'borrowed_books' %}">All Books Borrowed</a></li>
         {% else %}
             <li><a href="{% url 'login' %}?next={{request.path}}">Login</a></li>
+            <li><a href="{% url 'signup' %}">SignUp</a></li>
         {% endif %}
 
         </ul>
